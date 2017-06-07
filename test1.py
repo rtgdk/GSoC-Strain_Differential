@@ -1,6 +1,8 @@
 import vcf
 
 vcf_reader = vcf.Reader(open('/home/ubuntu/GSoC-Strain_Diffrential/test.vcf'))
+# vcf_reader = vcf.Reader(open('C:\\Users\\arpit\\Documents\\GitHub\\GSoC-Strain_Diffrential\\test.vcf'))
+
 
 snp_count = 0
 indel_count = 0
@@ -17,6 +19,8 @@ for record in vcf_reader:
         break
 print "\nIndel Count: ", indel_count, "\nSnp count: ", snp_count
 vcf_writer = vcf.Writer(open('/dev/null', 'w'), vcf_reader)
+# vcf_writer = vcf.Writer(open('NUL', 'w'), vcf_reader)
+
 count = 0
 record = next(vcf_reader)
 REF_list = [record.CHROM]
@@ -37,11 +41,14 @@ for record in vcf_reader:
 
 print("REF_list", REF_list)
 count = 0
-print "\n\n Checking\n"
-for i in range(0, len(REF_list)):
-    for record in vcf_reader.fetch(REF_list[0], i-1, i):
-        print record.REF, record.POS
-        count = count + 1
-        if count > 100:
-            break
+# print "\n\n Checking\n"
+# for i in range(0, len(REF_list)):
+#     for record in vcf_reader.fetch(REF_list[0], i-1, i):
+#         print record.REF, record.POS
+#         count = count + 1
+#         if count > 100:
+#             break
+
+record = vcf_reader.fetch(REF_list[0],REF_list[1] - 1, REF_list[1])
+print record.REF
 
