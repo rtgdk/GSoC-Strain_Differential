@@ -1,6 +1,6 @@
 import vcf
 
-vcf_reader = vcf.Reader(open('C:\\Users\\arpit\\Desktop\\GSoC\\test\\testdata.vcf'))
+vcf_reader = vcf.Reader(open('/home/ubuntu/GSoc-Strain_Diffrential/test.vcf'))
 
 snp_count = 0
 indel_count = 0
@@ -16,7 +16,7 @@ for record in vcf_reader:
     if indel_count > 5:
         break
 print "\nIndel Count: ", indel_count, "\nSnp count: ", snp_count
-vcf_writer = vcf.Writer(open('NUL', 'w'), vcf_reader)
+vcf_writer = vcf.Writer(open('/dev/null', 'w'), vcf_reader)
 count = 0
 record = next(vcf_reader)
 REF_list = [record.CHROM]
