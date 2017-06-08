@@ -1,6 +1,6 @@
 import vcf
 
-vcf_reader = vcf.Reader(open('/home/ubuntu/GSoc-Strain_Diffrential/test.vcf'))
+vcf_reader = vcf.Reader(open('/home/ubuntu/GSoC-Strain_Diffrential/test.vcf'))
 
 snp_count = 0
 indel_count = 0
