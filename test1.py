@@ -51,5 +51,5 @@ count = 0
 
 for i in REF_list:
     for record in vcf_reader.fetch(REF_list[0],int(i) - 1, int(i)):
-        print record.REF , record.POS - REF_list[int(i)]
+        print record.REF , record.POS - int(i)
 
