@@ -1,6 +1,6 @@
 import vcf
 
-vcf_reader = vcf.Reader(open('/home/ubuntu/GSoC-Strain_Diffrential/test.vcf'))
+vcf_reader = vcf.Reader(open('/home/ubuntu/GSoC-Strain_Diffrential/test.vcf.gz'))
 # vcf_reader = vcf.Reader(open('C:\\Users\\arpit\\Documents\\GitHub\\GSoC-Strain_Diffrential\\test.vcf'))
 
 
@@ -49,6 +49,6 @@ count = 0
 #         if count > 100:
 #             break
 
-record = vcf_reader.fetch(REF_list[0],REF_list[1] - 1, REF_list[1])
-print record.REF
+for record in vcf_reader.fetch(REF_list[0],REF_list[1] - 1, REF_list[1]):
+	print record.REF
 
