@@ -15,7 +15,9 @@ for record in vcf_reader:
         indel_count = indel_count + 1
         print "\nINDEL Found:"
         print "Record Position: ", record.POS, "\nRecord REF: ", record.REF, "\nRecord ALT:", record.ALT, "\nDeletion: ", record.is_deletion
-    if indel_count > 5 || snp_count > 30 :
+    if indel_count > 5:
+        break
+    if snp_count > 30:
         break
 print "\nIndel Count: ", indel_count, "\nSnp count: ", snp_count
 vcf_writer = vcf.Writer(open('/dev/null', 'w'), vcf_reader)
