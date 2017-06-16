@@ -40,11 +40,11 @@ for record in vcf_reader:
 
 print("REF_list", REF_list)
 
-for record in vcf_reader:
-    print record.REF
+    # for record in vcf_reader:
+    #     print record.REF
 
 for i in REF_list:
     for record in vcf_reader.fetch(REF_list[0],int(i) - 1, int(i)):
-        print record.REF , record.POS - int(i)
+        print record.REF, record.POS - int(i)
 
 
