@@ -49,6 +49,7 @@ count = 0
 #         if count > 100:
 #             break
 
-for record in vcf_reader.fetch(REF_list[0],REF_list[1] - 1, REF_list[1]):
-	print record.REF
+for i in REF_list:
+    for record in vcf_reader.fetch(REF_list[0],REF_list[i] - 1, REF_list[i]):
+        print record.REF , record.POS - REF_list[i]
 
