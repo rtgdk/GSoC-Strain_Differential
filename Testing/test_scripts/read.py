@@ -14,18 +14,20 @@ read_no_bases = raw_input("enter the no of bases to read:")
 count = 0
 print "Reference Strain \t Strain 1"
 for record in vcf_reader:
-    print record.samples
-    samples = record.samples
-    for i in sample['GT']:
-        if i == '0|0' or i == '0/0':
-            #handling
-            print record.Ref, '\t', record.REF
-        elif i == '1|1' or i == '1/1':
-            #handling
-            print record.Ref, '\t', record.ALT
-        else:
-            #handling heterozygous
-        print record.Ref, 'H'
+    count = count + 1
+    print "record.samples\t", record.samples
+    for sample in record.samples:
+        print "sample['GT']", sample['GT']
+        for i in sample['GT']:
+            #print type(i)
+            if i == "0|0" or i == "0/0":
+                print "0|0\t", record.REF, '\t', record.REF
+            elif i == "1|1" or i == "1/1":
+                #handling
+                print "1|1\t", record.REF, '\t', record.ALT
+            else:
+                #handling heterozygous
+                print "hetro\t", record.REF, 'H'
     count = count + 1
     if count > read_no_bases:
         break
