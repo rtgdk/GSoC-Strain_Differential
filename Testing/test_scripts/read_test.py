@@ -1,7 +1,7 @@
 import vcf
 
 
-data_file_path = "/home/ubuntu/GSoC-Strain_Diffrential/test.vcf.gz"
+data_file_path = "/home/ubuntu/GSoC-Strain_Diffrential/original.vcf.gz"
 print "Enter the data file path"
 temp_path = raw_input("type d for default path else type a path and file name:")
 if temp_path != "d":
