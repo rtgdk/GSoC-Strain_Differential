@@ -1,6 +1,6 @@
 import vcf
 
-vcf_reader = vcf.Reader(open('/home/ubuntu/GSoC-Strain_Diffrential/test.vcf.gz'))
+vcf_reader = vcf.Reader(open('/home/ubuntu/GSoC-Strain_Diffrential/test_modified.vcf.gz'))
 # vcf_reader = vcf.Reader(open('C:\\Users\\arpit\\Documents\\GitHub\\GSoC-Strain_Diffrential\\test.vcf'))
 
 
@@ -20,7 +20,7 @@ for record in vcf_reader:
     if snp_count > 30:
         break
 print "\nIndel Count: ", indel_count, "\nSnp count: ", snp_count
-vcf_writer = vcf.Writer(open('/dev/null', 'w'), vcf_reader)
+vcf_writer = vcf.Writer(open('/home/ubuntu/GSoC-Strain_Diffrential/test_modified.vcf', 'w'), vcf_reader)
 # vcf_writer = vcf.Writer(open('NUL', 'w'), vcf_reader)
 
 count = 1
