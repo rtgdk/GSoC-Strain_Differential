@@ -4,7 +4,8 @@ import sys
 
 data_file_path = "/home/ubuntu/GSoC-Strain_Diffrential/original.vcf.gz"
 print "Enter the data file path"
-temp_path = raw_input("type d for default path else type a path and file name:")
+temp_path = raw_input("type d for default path else type a file path:")
+temp_path = temp_path + "original_modified.vcf.gz"
 if temp_path != "d":
     data_file_path = temp_path
 
