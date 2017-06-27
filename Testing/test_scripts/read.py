@@ -1,4 +1,5 @@
 import vcf
+import sys
 
 
 data_file_path = "/home/ubuntu/GSoC-Strain_Diffrential/original.vcf.gz"
@@ -9,27 +10,52 @@ if temp_path != "d":
 
 vcf_reader = vcf.Reader(open(data_file_path))
 
-read_no_bases = raw_input("enter the no of bases to read:")
+read_no_bases = int(raw_input("enter the no of bases to read:"))
+#read_no_bases = 10
 
 count = 0
-print "Reference Strain \t Strain 1"
+print "Sample\tReference Strain\tStrain 1\tSNP/INDEL"
+
+ref_val = "0|0"
+ref_val_alt = "0/0"
+alt_val = "1|1"
+alt_val_alt = "1/1"
+
 for record in vcf_reader:
-    count = count + 1
-    print "record.samples\t", record.samples
+    #print "record.samples\t", record.samples
     for sample in record.samples:
-        print "sample['GT']", sample['GT']
+        #print "sample['GT']", sample['GT']
+        if sample['GT'] == "1|1":
+            sys.stdout.write(sample['GT'])
+            sys.stdout.write("\t")
+            sys.stdout.write(record.REF)
+            sys.stdout.write("\t")
+            alt_record = record.ALT[0]
+            sys.stdout.write(str(alt_record))
+            sys.stdout.flush()
+        elif sample['GT'] == "0|0" or sample['GT'] == "0/0":
+            print "0|0\t", record.REF, "\t", record.REF
+        else:
+            print "Hetro\t", record.REF, "\t", "H"
+        if record.is_snp:
+            sys.stdout.write("\tSNP\n")
+        elif record.is_indel:
+            sys.stdout.write("\tINDEL\n")
+        sys.stdout.flush()
+    read_no_bases = read_no_bases - 1
+    if read_no_bases<1:
+        break
+        '''
         for i in sample['GT']:
             #print type(i)
-            if i == "0|0" or i == "0/0":
+            if i == ref_val or i == ref_val_alt:
                 print "0|0\t", record.REF, '\t', record.REF
-            elif i == "1|1" or i == "1/1":
+            elif i == alt_val or i == alt_val_alt:
                 #handling
                 print "1|1\t", record.REF, '\t', record.ALT
             else:
                 #handling heterozygous
                 print "hetro\t", record.REF, 'H'
-    count = count + 1
-    if count > read_no_bases:
-        break
+        '''
 
 

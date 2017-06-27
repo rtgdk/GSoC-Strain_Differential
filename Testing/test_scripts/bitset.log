@@ -1,2 +1,32 @@
 Enter the data file path
-type d for default path else type a path and file name:
+Reference Strain 	 Strain 1
+record.samples	[Call(sample=6268, CallData(GT=1|1, GQ=40, DP=52))]
+sample['GT'] 1|1
+hetro	C H
+hetro	C H
+hetro	C H
+record.samples	[Call(sample=6268, CallData(GT=1|1, GQ=40, DP=71))]
+sample['GT'] 1|1
+hetro	T H
+hetro	T H
+hetro	T H
+record.samples	[Call(sample=6268, CallData(GT=1|1, GQ=40, DP=77))]
+sample['GT'] 1|1
+hetro	T H
+hetro	T H
+hetro	T H
+record.samples	[Call(sample=6268, CallData(GT=1|1, GQ=40, DP=61))]
+sample['GT'] 1|1
+hetro	C H
+hetro	C H
+hetro	C H
+record.samples	[Call(sample=6268, CallData(GT=1|1, GQ=40, DP=45))]
+sample['GT'] 1|1
+hetro	G H
+hetro	G H
+hetro	G H
+record.samples	[Call(sample=6268, CallData(GT=1|1, GQ=40, DP=44))]
+sample['GT'] 1|1
+hetro	AT H
+hetro	AT H
+hetro	AT H

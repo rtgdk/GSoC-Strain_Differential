@@ -17,8 +17,7 @@ def writer():
 
     vcf_writer = vcf.Writer(open(write_file_path, 'w'), vcf_reader)
 
-    change_no_bases = raw_input("enter the no of bases to change:")
-`
+    change_no_bases = int(raw_input("enter the no of bases to change:"))
     # Storing the chrom no. of the data - as only 100 bases are read, the chrom no. will not change only one is saved.
     count = 1
     record = next(vcf_reader)
