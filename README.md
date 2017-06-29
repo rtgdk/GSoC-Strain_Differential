@@ -11,7 +11,7 @@ The three major parts of the project are:
 
 ## Requirments
 
-##### [Python 2.7.13](https://docs.python.org/2/using/index.html)
+#### [Python 2.7.13](https://docs.python.org/2/using/index.html)
 
 First, install some dependencies:
 
@@ -38,14 +38,14 @@ $make
 $sudo checkinstall
 ```
 
-##### [pip](https://pip.pypa.io/en/stable/)
+#### [pip](https://pip.pypa.io/en/stable/)
 
 ```sh
 $ sudo apt-get install python-pip python-dev build-essential 
 $ sudo pip install --upgrade pip 
 $ sudo pip install --upgrade virtualenv 
 ```
-##### [PyVCF](http://pyvcf.readthedocs.io/)
+#### [PyVCF](http://pyvcf.readthedocs.io/)
 
 First, install the dependencies of PyVCF:
 ```sh
@@ -63,7 +63,7 @@ $pip install pyvcf
 ```
 _Note: if there is some error in running the fetch function, switch to `pysam!=0.8.0`_
 
-##### [PyTest](https://docs.pytest.org/en/latest/getting-started.html)
+#### [PyTest](https://docs.pytest.org/en/latest/getting-started.html)
 
 ```sh
 $pip install -U pytest
