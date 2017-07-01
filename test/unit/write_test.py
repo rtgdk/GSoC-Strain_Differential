@@ -26,7 +26,7 @@ def testfunc():
 
     :Object record: loop variable, iterates over all values of vcf_reader.
     :Object vcf_reader, stores return readfile().
-    
+
     :return: void
     """
     vcf_reader = readfile() 
