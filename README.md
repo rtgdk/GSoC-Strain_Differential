@@ -1,4 +1,4 @@
-[![N|Solid](https://blog.tameesh.in/sites/default/files/inline-images/Screenshot%20from%202017-05-05%2001-06-34_0.png)](https://summerofcode.withgoogle.com/projects/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BmtMbABy2QHWwVfPokBUNnw%3D%3D#5216557551583232)
+[![N|Solid](https://developers.google.com/open-source/gsoc/resources/downloads/GSoC-logo-horizontal.svg)](https://summerofcode.withgoogle.com/projects/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BmtMbABy2QHWwVfPokBUNnw%3D%3D#5216557551583232)
 
 # Strain Differential
 
