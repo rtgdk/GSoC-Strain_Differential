@@ -87,7 +87,32 @@ _Note: This will not work on Windows because [Pysam](https://github.com/pysam-de
 
 ## Weekly TODO:
 
-_*Coming Soon*_
+1.	July 1st Week  (1st - 7th):  
+      -   Implement translation, test against large dataset.
+      
+2.   July 2nd Week (8th - 14th): 
+        -	Implement Reference change for bitset matrix
+        
+             -	Implement the algorithm (Both for SNP and INDEL)
+3.	July 3rd Week (15th - 21st):
+        -	Finish Implementing Reference Change .
+        -	Start working on the test suite.
+        
+                -	Discuss parameters for testing
+                -	Write the code for testing (Working on a proper testing suite)
+                -	Make  the toy examples.
+                -	Test for full dataset and toy examples.
+                
+4.	July 4th Week (22nd - 28th):
+        -	Testing continues
+        -	Work on implementing heterogeneity.
+        
+                -	If any solution has been thought of implement it.
+                -	Else work on a solution 
+                -	Implement the solution
+                
+5.	Work on Visualization begins.
+
 
 
 ## Usage
