@@ -1,6 +1,6 @@
 import vcf
 
-def length_test_snp:
+def length_test_snp():
     """ Checks for the length integrity in case of snp.
 
     :return: void
@@ -27,7 +27,7 @@ def length_test_snp:
         print ("Length Test FAIL")
 
 
-def length_test_indel:
+def length_test_inde():
     """ Checks for the length integrity in case of indels.
 
         :return: void
@@ -55,8 +55,9 @@ def length_test_indel:
             
             result_count = result_count + 1
 
-    if test_count == result_count && base_length_result == base_length_test:
-        print ("Length Test PASS")
+    if test_count == result_count:
+        if base_length_result == base_length_test:
+         print ("Length Test PASS")
     else:
         print ("Length Test FAIL")
 
