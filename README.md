@@ -108,7 +108,7 @@ _Note: This will not work on Windows because [Pysam](https://github.com/pysam-de
 
 ## Testing
 
-###Logic Tests
+### Logic Tests
  - Is length of sequence as expected? (check after insertion and deletion)
  - Is SNP changed correctly and in the correct position?
  - Is the insertion changed correctly and in the correct position?
@@ -116,7 +116,8 @@ _Note: This will not work on Windows because [Pysam](https://github.com/pysam-de
  - If you change the reference and then change back, do you get the original sequence? (better with an indel)
  - Does the coordinate system remain intact when you make one change? i.e. test for the effect of 2 successive changes in different positions - make sure 2nd change occurs in the right place.
  - Check predictions from VCF (read by your code) against FASTA files for each genome
-###Performance tests
+ 
+### Performance tests
  - Using actual data - how long does it take to initialise, then flip, for 1 kb, 10 kb, 100 kb, and entire chromosome.
  - Similarly with 10, 100, 1000 strains.
 
