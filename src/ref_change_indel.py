@@ -6,7 +6,7 @@ tran_ref = dict()
 tran_alt = dict()
 
 
-def ref_snp():
+def ref_indel():
     # Add file path to the reference
     path_template = "/home/ubuntu/GSoC-Strain_Diffrential/original"
 
@@ -40,7 +40,15 @@ def ref_snp():
                         sample['GT'] = "0|0"
                     else:
                         # Handle in INDEL code
-                        print("INDEL SPOTTED!")
+                        temp_ref = record.REF
+                        if temp_ref.__len__() > 1:
+                            #Handle Deletion
+                        else:
+                            compare(record.REF, record.ALT)
+                            for var in record.ALT:
+                                if temp_ref == var:
+                                    from translation.py import reader
+                                    ()
 
                     sys.stdout.write("\t")
                     alt_record = record.ALT[x]
@@ -97,4 +105,8 @@ def ref_snp():
             #handling heterozygous
             print "hetro\t", record.REF, 'H'
     '''
-ref_snp()
+
+
+
+
+ref_indel()
