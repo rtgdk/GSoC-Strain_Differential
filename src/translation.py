@@ -6,9 +6,11 @@ tran_ref = dict()
 tran_alt = dict()
 
 
-def trans(base_record, record):
+def trans(base_record, record, write_file_path, data_file_path):
     """ Translates the given bases for bitset matrix
 
+    :param write_file_path: store write path.
+    :param data_file_path: store data path.
     :String char: loop variable, iterates over all values of bases.
     :String alt_record: temp variable, stores alternate record value.
 
@@ -16,6 +18,9 @@ def trans(base_record, record):
     :param record: takes the vcf record object in which the bases are to be translated
     :return: void
     """
+    vcf_reader = vcf.Reader(open(data_file_path))
+
+    vcf_writer = vcf.Writer(open(write_file_path, 'w'), vcf_reader)
 
     for char in base_record:
         sys.stdout.write("1|1")
@@ -25,9 +30,13 @@ def trans(base_record, record):
         alt_record = record.ALT[0]
         sys.stdout.write(alt_record)
         sys.stdout.write("\n")
+        vcf_writer.write_record(record)
+
+    vcf_writer.flush()
+    sys.stdout.flush()
 
 
-def reader():
+def reader(data_file_path, write_file_path):
     """reads data from vcf file and prints as bitset matrix and calls trans() for translating the matrix.
 
         :String data_file_path: default data file path.
@@ -41,7 +50,7 @@ def reader():
         :return: void
         """
 
-    data_file_path = "/home/ubuntu/GSoC-Strain_Diffrential/original.vcf.gz"
+    # data_file_path = "/home/ubuntu/GSoC-Strain_Diffrential/original.vcf.gz"
     print "Enter the data file path"
     # take user input
     temp_path = raw_input("type d for default path else type a file path:")
@@ -69,8 +78,8 @@ def reader():
 
                 # if the reference record contains more than one base, the matrix will be translated...
                 # else it would simply be treated as bitset matrix
-                if ref_record.__len__() > 1 :
-                    trans(ref_record, record)
+                if ref_record.__len__() > 1:
+                    trans(ref_record, record, write_file_path, data_file_path)
                     tran_ref[record.POS] = ref_record.__len__()
                 else:
                     sys.stdout.write("\t")
@@ -93,13 +102,13 @@ def reader():
             # check for homogeneity, same base.
             elif sample['GT'] == "0|0" or sample['GT'] == "0/0":
                 print "0|0\t", record.REF, "\t", record.REF
-            #check for heterogeneity.
+            # check for heterogeneity.
             else:
                 print "Hetro\t", record.REF, "\t", "H"
             # check for SNP
             if record.is_snp:
                 sys.stdout.write("\tSNP\n")
-            #  check for INDEL
+            # check for INDEL
             elif record.is_indel:
                 sys.stdout.write("\tINDEL\n")
             sys.stdout.flush()
@@ -120,6 +129,8 @@ def reader():
             #handling heterozygous
             print "hetro\t", record.REF, 'H'
     '''
+    return 1
+
 
 # calling reader() function.
 reader()

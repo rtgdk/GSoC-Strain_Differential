@@ -1,12 +1,13 @@
 import vcf
 import sys
-from translation.py import reader()
+from translation import reader
+from difflib import SequenceMatcher
 
 tran_ref = dict()
 tran_alt = dict()
 
 
-def ref_indel():
+def ref_snp(strain_num):
     # Add file path to the reference
     path_template = "/home/ubuntu/GSoC-Strain_Diffrential/original"
 
@@ -20,74 +21,84 @@ def ref_indel():
 
     altx = 0
     for record in vcf_reader:
-        strain_num = record.ALT.__len__()
+        alt_num = record.ALT.__len__()
         for sample in record.samples:
             # print "sample['GT']", sample['GT']
             # check for homogeneity, alternate base.
-            for x in range(0, strain_num):
-                altx = x
-                if sample['GT'] == str(x) + "|" + str(x) or sample['GT'] == str(x) + "/" + str(x):
-                    ref_record = record.REF
+            for samples in sample:
+                if samples.num == strain_num:
+                    for x in range(0, alt_num):
+                        altx = x
+                        if sample['GT'] == str(x) + "|" + str(x) or sample['GT'] == str(x) + "/" + str(x):
+                            ref_record = record.REF
+                            alt_record = record.ALT
+                            # if the reference record contains more than one base, the matrix will be translated...
+                            # else it would simply be treated as bitset matrix
+                            if ref_record.__len__() == 1 and alt_record.__len__() == 1:
+                                temp = record.ALT[x]
+                                record.ALT[x] = record.REF
+                                record.REF = temp
 
-                    # if the reference record contains more than one base, the matrix will be translated...
-                    # else it would simply be treated as bitset matrix
-                    if ref_record.__len__() == 1:
-                        temp = record.ALT[x]
-                        record.ALT[x] = record.REF
-                        record.REF = temp
+                                # change the alternate base ref
+                                sample['GT'] = "0|0"
+                            else:
+                                # Handle in INDEL code
+                                if ref_record.__len__() >= 1:
+                                    reader(data_file_path)
+                                    if compare(record.REF, record.ALT) == 0.0:
+                                        temp = record.ALT[x]
+                                        record.ALT[x] = record.REF
+                                        record.REF = temp
+                                    elif compare(record.REF, record.ALT) == 1.0:
+                                        sys.stderr.write("Same base in Reference and Alternate.")
+                                else:
+                                    sys.stderr.write("No reference found.")
+                            sys.stdout.write("\t")
+                            alt_record = record.ALT[x]
+                            sys.stdout.write(str(alt_record))
+                            sys.stdout.flush()
 
-                        # change the alternate base ref
-                        sample['GT'] = "0|0"
-                    else:
-                        # Handle in INDEL code
-                        temp_ref = record.REF
-                        if temp_ref.__len__() > 1:
-                            #Handle Deletion
+                            """Sample code for translating alt records."""
+                            # if alt_record.__len__() > 1:
+                            #     trans(alt_record, record)
+                            #     tran_ref[record.POS] = alt_record.__len__()
+                            # else:
+                            #     sys.stdout.write("\t")
+                            #     sys.stdout.write(str(alt_record))
+
+                        # check for homogeneity, same base.
+                        elif sample['GT'] == "0|0" or sample['GT'] == "0/0":
+                            print "0|0\t", record.REF, "\t", record.REF, ": No change"
+                            sample['GT'] = str(altx) + "|" + str(altx)
+
+                        # check for heterogeneity.
                         else:
-                            compare(record.REF, record.ALT)
-                            for var in record.ALT:
-                                if temp_ref == var:
-                                    from translation.py import reader
-                                    ()
 
-                    sys.stdout.write("\t")
-                    alt_record = record.ALT[x]
-                    sys.stdout.write(str(alt_record))
-                    sys.stdout.flush()
+                            print "Hetro\t", record.REF, "\t", "H"
 
-                    """Sample code for translating alt records."""
-                    # if alt_record.__len__() > 1:
-                    #     trans(alt_record, record)
-                    #     tran_ref[record.POS] = alt_record.__len__()
-                    # else:
-                    #     sys.stdout.write("\t")
-                    #     sys.stdout.write(str(alt_record))
+                        # Need fix here, data annotation needs to be changed in case of INDELS.
+                        # check for SNP
+                        if record.is_snp:
+                            # record.is_snp = false
+                            # record.is_indel = true
+                            sys.stdout.write("\tSNP\n")
+                        # check for INDEL
+                        elif record.is_indel:
+                            # record.is_snp = true
+                            # record.is_indel = false
+                            sys.stdout.write("\tINDEL\n")
 
-                    break
-                # check for homogeneity, same base.
-                elif sample['GT'] == "0|0" or sample['GT'] == "0/0":
-                    print "0|0\t", record.REF, "\t", record.REF, ": No change"
-                    sample['GT'] = str(altx) + "|" + str(altx)
-                    break
-                # check for heterogeneity.
+                        vcf_writer.write_record(record)
+                        break
+                        # read_no_bases = read_no_bases - 1
+                        # if read_no_bases < 1:
+                        #     break
                 else:
-                    print "Hetro\t", record.REF, "\t", "H"
-                    break
-
-                # Need fix here, data annotation needs to be changed in case of INDELS.
-                # check for SNP
-                if record.is_snp:
-                    sys.stdout.write("\tSNP\n")
-                # check for INDEL
-                elif record.is_indel:
-                    sys.stdout.write("\tINDEL\n")
-
-                vcf_writer.write_record(record)
-
-                # read_no_bases = read_no_bases - 1
-                # if read_no_bases < 1:
-                #     break
-
+                    for x in range(0, alt_num):
+                        if sample['GT'] == str(altx) + "|" + str(altx) or sample['GT'] == str(altx) + "/" + str(altx):
+                            sample['GT'] = "0|0"
+                        elif sample['GT'] == "0|0" or sample['GT'] == "0/0":
+                            sample['GT'] = str(altx) + "|" + str(altx)
     # Flush data from memory
     vcf_writer.flush()
     sys.stdout.flush()
@@ -107,6 +118,11 @@ def ref_indel():
     '''
 
 
+strain_num = raw_input("Enter the strain you want as the new reference")
+ref_snp(strain_num)
 
 
-ref_indel()
+def compare(ref, alt):
+    # code to compare the reference and alternate bases for checking similarities
+    return SequenceMatcher(None, ref, alt).ratio()
+
