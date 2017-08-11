@@ -1,0 +1,8 @@
+##fileformat=VCFv4.1
+##INFO=<ID=DP,Number=1,Type=Integer,Description="Total Depth">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype Quality">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read Depth">
+##FILTER=<ID=q25,Description="Quality below 25">
+##FILTER=<ID=q30,Description="Quality below 30">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	6268	6269

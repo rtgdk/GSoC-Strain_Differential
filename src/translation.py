@@ -133,5 +133,4 @@ def reader(data_file_path, write_file_path):
 
 
 # calling reader() function.
-reader()
 

@@ -44,7 +44,7 @@ def ref_snp(strain_num):
                             else:
                                 # Handle in INDEL code
                                 if ref_record.__len__() >= 1:
-                                    reader(data_file_path)
+                                    reader(data_file_path,write_file_path)
                                     if compare(record.REF, record.ALT) == 0.0:
                                         temp = record.ALT[x]
                                         record.ALT[x] = record.REF
