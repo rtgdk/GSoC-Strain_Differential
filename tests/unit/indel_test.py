@@ -5,7 +5,14 @@ import pytest
 from subprocess import call
 from test import reader
 from  hash import hash
+import time
+import os 
+from cleaner import clean
+
 def test2_test():
+
+    # timing for performance test
+    t0 = time.time()
 
     data_path = "../data/test/test2"
     write_path = " ../data/result/test2"
@@ -19,8 +26,14 @@ def test2_test():
     result_hash = hash("../data/result/test2_result.vcf.gz")
 
     assert crossval_hash == result_hash
+    
+    t1 = time.time()
+    print "Indel test time: " + (t1-t0) 
 
 def test2.1_test():
+
+    # timing for performance test 
+    t0 = time.time()
 
     data_path = "../data/test/test2_result"
     write_path = " ../data/result/test2_cons"
@@ -35,8 +48,14 @@ def test2.1_test():
 
     assert crossval_hash == result_hash
 
+    t1 = time.time()
+    print " Extra test 1:" + (t1-t0)
+
 
 def multiChange_test():
+    
+    # timing for performance test 
+    t0 = time.time()
 
     data_path = "../data/result/test2_result"
     write_path = "../data/result/test2_result"
@@ -50,3 +69,14 @@ def multiChange_test():
     result_hash = hash("../data/result/test2_result_result.vcf.gz")
 
     assert test_hash == result_hash
+
+    t1 = time.time()
+    print "Multichange in indel time:" + (t1-t0)
+
+    # cleaning up other created files
+    os.remove("../data/result/test2_result.vcf.gz")
+    os.remove("../data/result/test2_result_result.vcf.gz")
+    os.remove("../data/result/test2_cons_result.vcf.gz")
+    #removing other files
+    clean()
+
