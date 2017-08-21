@@ -108,6 +108,21 @@ _Note: This will not work on Windows because [Pysam](https://github.com/pysam-de
 
 ## Testing
 
+### How to use tests
+
+ #### All tests
+  - switch to `tests/unit/` directory
+  - run `pytest -v` 
+ #### Single Tests
+  - switch to `tests/unit` directory
+  - run `pytest -v 'test_name.py'` to run a specific test
+ #### File Structure
+ All test data is stored in `/tests/data` in the following structure:
+ - `test` - contains all required test.vcf.gz file for running the unit test.
+ - `results` - all the results generated from the tests are stored here before they are deleted by the test code cleanup module.
+ - `cross_validation` - all cross validation data is stored here.
+ - `performance_test` - all performance test data of varrying sizes are stored here.
+ 
 ### Logic Tests
  - Is length of sequence as expected? (check after insertion and deletion)
  - Is SNP changed correctly and in the correct position?
@@ -123,7 +138,6 @@ _Note: This will not work on Windows because [Pysam](https://github.com/pysam-de
 
 
 ## Usage
-
 
 _*Coming Soon*_
 
