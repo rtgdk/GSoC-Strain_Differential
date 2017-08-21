@@ -136,6 +136,9 @@ _Note: This will not work on Windows because [Pysam](https://github.com/pysam-de
  - Using actual data - how long does it take to initialise, then flip, for 1 kb, 10 kb, 100 kb, and entire chromosome.
  - Similarly with 10, 100, 1000 strains.
 
+## Documentation
+
+The repository uses [Python Docstyle](https://www.python.org/dev/peps/pep-0257/) documentaion.
 
 ## Usage
 
