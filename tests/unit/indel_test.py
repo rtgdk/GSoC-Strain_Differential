@@ -1,58 +1,77 @@
 import sys
+from hash import hash 
+#from cleaner import clean
 sys.path.insert(0, '../../src/')
 
 import pytest
 from subprocess import call
 from test import reader
-from  hash import hash
 import time
 import os 
-from cleaner import clean
 
+'''
+test to assert reference change of indels, multiple strain change and base change at same position"
+'''
 def test2_test():
 
     # timing for performance test
     t0 = time.time()
 
+    #sending data to main function
     data_path = "../data/test/test2"
-    write_path = " ../data/result/test2"
+    write_path = "../data/result/test2"
     strain_num = 6268
 
-    print reader(data_path, write_path, strain_num)
+    # calling main fucntion
+    reader(data_path, write_path, strain_num)
 
-    call(["bgzip","test2_result.vcf"])
+    # compressing file to .vcf.gz
+    call(["bgzip","../data/result/test2_result.vcf"])
 
+    # generating checksums
     crossval_hash = hash("../data/cross_validation/test2_crossval.vcf.gz")
     result_hash = hash("../data/result/test2_result.vcf.gz")
 
+    # validating checksums 
     assert crossval_hash == result_hash
     
+    #printing time results
     t1 = time.time()
-    print "Indel test time: " + (t1-t0) 
+    print "Indel test time: " + str(t1-t0) 
 
-def test2.1_test():
+
+
+''' test to assert validation of cordinate system by changing back to the original reference strain'''
+def test_multichange():
 
     # timing for performance test 
     t0 = time.time()
 
-    data_path = "../data/test/test2_result"
-    write_path = " ../data/result/test2_cons"
-    strain_num = 6269
+    # sending data to main function
+    data_path = "../data/result/test2_result"
+    write_path = " ../data/result/test2_result"
+    strain_num = 6268
+     
+    # calling the main function 
+    reader(data_path, write_path, strain_num)
 
-    print reader(data_path, write_path, strain_num)
+ #   call(["bgzip","../data/result/test2_result_result.vcf"])
 
-    call(["bgzip","test2_cons_result.vcf"])
+    # generatig checksums
+    crossval_hash = hash("../data/test/test2.vcf.gz")
+    result_hash = hash("../data/result/test2_result_result.vcf.gz")
 
-    crossval_hash = hash("../data/cross_validation/test2_cons_crossval.vcf.gz")
-    result_hash = hash("../data/result/test2_result.vcf.gz")
-
+    #validating checksums
     assert crossval_hash == result_hash
 
+    # printing time outputs
     t1 = time.time()
-    print " Extra test 1:" + (t1-t0)
+    print " Extra test 1:" + str(t1-t0)
 
 
-def multiChange_test():
+'''
+
+def test_multiChange():
     
     # timing for performance test 
     t0 = time.time()
@@ -71,12 +90,12 @@ def multiChange_test():
     assert test_hash == result_hash
 
     t1 = time.time()
-    print "Multichange in indel time:" + (t1-t0)
+    print "Multichange in indel time:" + str(t1-t0)
 
     # cleaning up other created files
-    os.remove("../data/result/test2_result.vcf.gz")
-    os.remove("../data/result/test2_result_result.vcf.gz")
-    os.remove("../data/result/test2_cons_result.vcf.gz")
+#    os.remove("../data/result/test2_result.vcf.gz")
+#    os.remove("../data/result/test2_result_result.vcf.gz")
+#    os.remove("../data/result/test2_cons_result.vcf.gz")
     #removing other files
-    clean()
-
+   # clean()
+'''

@@ -1,5 +1,6 @@
 import hashlib 
 
+digests = []
 def hash(filename):
     hasher = hashlib.md5()
     with open(filename, 'rb') as f:
